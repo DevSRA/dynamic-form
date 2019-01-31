@@ -1,13 +1,5 @@
 <form [formGroup]="quizForm" (ngSubmit)="onSubmit()">
 
   <app-form-control *ngFor="let data of dataList" [data]="data" [parentForm]="quizForm"></app-form-control>
-  <button type="button" (click)="onReset()">NEXT</button>
 
 </form>
-
-<br>
-
-<div *ngIf="showFormValue">
-  <p>Submitted values:</p>
-  <pre>{{ quizForm.value | json }}</pre>
-</div>

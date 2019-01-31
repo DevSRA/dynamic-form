@@ -20,21 +20,24 @@ export class AppComponent {
       "type": "Single",
       "required": true,
       "answers": [
-          {
-              "id": 100001,
-              "type": "radio",
-              "answer": "Me",
-              "nextQuestion": 1001,
-              "extendedFields": []
-          },
-          {
-              "id": 100002,
-              "type": "radio",
-              "answer": "For someone else",
-              "nextQuestion": 1001,
-              "extendedFields": []
-          }
-      ]
+        {
+            "id": 100001,
+            "type": "radio",
+            "answer": "Me",
+            "nextQuestion": 1001
+        },
+        {
+            "id": 100002,
+            "type": "radio",
+            "answer": "For someone else",
+            "nextQuestion": 1001,
+            "extendedField": {
+                "text": "Please enter name",
+                "type": "text",
+                "options": []
+            }
+        }
+    ]
   }
   this.mapData(this.myJSON);
   }
@@ -46,24 +49,21 @@ export class AppComponent {
       quizType : obj.type
     }
     
+
     for (var i in obj.answers) {
       var item = obj.answers[i];
-       var item2 = obj.answers[i].extendedFields;
-    
+      var item2 = obj.answers[i].extendedField;
 
       this.dataList.push({
+        id : item.id,
         controlType: item.type,
         label: item.answer,
-        key: "qfirst",
-        quizId : item.nextQuestion,
-        options: [
-          { key: item.answer },
-        ],
-        extendedFields : [
-          item2[0]
-        ]
-
-
+        key: "Answer",
+        required: obj.required,
+        quizId: item.nextQuestion,
+        options: [{ key: item.answer, value: item.answer }],
+        extendedFields: item2,
+     
       });
     }
     this.dataList.unshift(question)

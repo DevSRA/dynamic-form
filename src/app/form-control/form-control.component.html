@@ -3,45 +3,23 @@
 
   <label *ngIf="data.controlType == 'text'" [attr.for]="data.key">{{data.label}}</label>
   <input *ngIf="data.controlType == 'text'" [type]="data.type">
-  <!--<input *ngIf="data.controlType == 'input'" [formControlName]="data.key" [type]="data.type">-->
 
   <!--Single Radio button view-->
   <div *ngIf="data.controlType == 'radio'">
     <ng-container *ngFor="let opt of data.options">
       <label>
-        <input style="margin-left: 5px;" (change)="handleChange($event)" type="radio" [name]="data.key" [value]="data.value" [id]="data.quizId" > {{opt.key}} 
-      </label>
-    </ng-container>
-  </div>
-
-  <!--Multi Checkbox view-->
-  <div *ngIf="data.controlType == 'checkbox'">
-    <ng-container *ngFor="let cbValue of data.options">
-      <label>
-        <input style="margin-left: 5px;" type="checkbox" [name]="data.key" [value]="data.value"> {{cbValue.key}}
+        <input style="margin-left: 5px;" (change)="handleChange($event)" type="radio" [name]="data.key" [value]="data.options['0'].value"
+          [id]="data.quizId"> {{opt.key}}
       </label>
     </ng-container>
   </div>
 
   <!--Extended field view-->
-  <div *ngIf="data.extendedFields && data.extendedFields[0] ">
-    <ng-container *ngFor="let a of data.extendedFields">
-     {{a.text}}
-     <textarea id="story" name="story"
-     rows="5" cols="33"></textarea>
-
-    </ng-container>
+  <div *ngIf="data.extendedFields && data.extendedFields.type">
+    <div *ngIf="data.extendedFields.type == 'text' && showExtraField">
+      <ng-container>
+        <label [attr.for]="data.key">{{data.extendedFields.text}}</label>
+        <input *ngIf="data?.extendedFields.type == 'text'" [formControlName]="data.key">
+      </ng-container>
+    </div>
   </div>
-
-  <!-- <input *ngIf="data.extendedFields[0].type == 'textarea'" [type]="data.type">-->
-
-  <!-- <ng-container *ngFor="let opt of data.options">
-      <label>
-
-        <input style="margin-left: 5px;" type="checkbox" [name]="data.key" [value]="data.value"> {{opt.key}}
-      </label>
-    </ng-container>-->
-
-
-
-</div>
